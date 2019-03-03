@@ -9,7 +9,9 @@ class AddContact extends PureComponent {
     super(props);
     this.state = {
       name: "",
-      contact: ""
+      phone: "",
+      error: false,
+      errorMessage: ""
     };
   }
   onChangeName = event => {
@@ -24,9 +26,24 @@ class AddContact extends PureComponent {
   };
   addContact = event => {
     event.preventDefault();
-    this.props.addContact({ name: this.state.name, phone: this.state.phone });
+    const phone = this.state.phone;
+    if (isNaN(phone) || phone.length !== 10) {
+      this.setState({
+        error: true,
+        errorMessage: "Enter a valid phone no."
+      });
+    } else {
+      this.props.addContact({
+        name: this.state.name,
+        phone: this.state.phone
+      });
+    }
   };
   render() {
+    let errorMessage;
+    if (this.state.error) {
+      errorMessage = this.state.errorMessage;
+    }
     return (
       <Fragment>
         <Header>Add a contact</Header>
@@ -37,12 +54,23 @@ class AddContact extends PureComponent {
           <form className="AddContact__form" onSubmit={this.addContact}>
             <div className="form__control">
               <label htmlFor="name">Name: </label>
-              <input type="text" id="name" onChange={this.onChangeName} required/>
+              <input
+                type="text"
+                id="name"
+                onChange={this.onChangeName}
+                required
+              />
             </div>
             <div className="form__control">
               <label htmlFor="phone">Phone: </label>
-              <input type="text" id="phone" onChange={this.onChangePhone} required/>
+              <input
+                type="text"
+                id="phone"
+                onChange={this.onChangePhone}
+                required
+              />
             </div>
+            <h4 className="form__error">{errorMessage}</h4>
             <hr />
             <h3>Subscriber to be added:</h3>
             <div className="form__display">
