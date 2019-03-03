@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import "./App.css";
-import Contacts from "./Components/Contacts/Contacts";
+import { Switch, Route } from "react-router-dom";
+import Main from "./Containers/Main";
+import AddContact from "./Components/AddContact/AddContact";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contacts: [{ id: 0, name: "Shivam", phone: "9891866484" }]
+      contacts: []
     };
   }
   addContact = contact => {
@@ -18,7 +20,6 @@ class App extends Component {
     });
   };
   deleteContact = id => {
-    console.log(id);
     const newContacts = this.state.contacts.filter(
       contact => contact.id !== id
     );
@@ -28,10 +29,21 @@ class App extends Component {
   };
   render() {
     return (
-      <div className="App">
-        <header className="header">Phone Directory</header>
-        <Contacts list={this.state.contacts} onDelete={this.deleteContact} />
-      </div>
+      <Switch>
+        <Route
+          path="/add"
+          render={() => <AddContact addContact={this.addContact} />}
+        />
+        <Route
+          path="/"
+          render={() => (
+            <Main
+              contacts={this.state.contacts}
+              deleteContact={this.deleteContact}
+            />
+          )}
+        />
+      </Switch>
     );
   }
 }

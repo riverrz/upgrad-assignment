@@ -8,7 +8,7 @@ const contacts = props => {
         <td>{contact.phone}</td>
         <td>
           <button
-            onClick={() => props.onDelete(contact.id) || console.log("Deleted")}
+            onClick={() => props.onDelete(contact.id)}
           >
             DELETE
           </button>
