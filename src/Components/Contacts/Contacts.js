@@ -1,4 +1,5 @@
 import React from "react";
+import "./Contacts.css";
 
 const contacts = props => {
   const contactList = props.list.map((contact, id) => {
@@ -7,17 +8,13 @@ const contacts = props => {
         <td>{contact.name}</td>
         <td>{contact.phone}</td>
         <td>
-          <button
-            onClick={() => props.onDelete(contact.id)}
-          >
-            DELETE
-          </button>
+          <button onClick={() => props.onDelete(contact.id)} className="Contacts__delete">DELETE</button>
         </td>
       </tr>
     );
   });
   return (
-    <table>
+    <table className="Contacts__table">
       <tbody>
         <tr>
           <th>NAME</th>

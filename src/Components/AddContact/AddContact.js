@@ -49,7 +49,7 @@ class AddContact extends PureComponent {
               Phone: <span>{this.state.phone}</span>
             </div>
             <Link to="/" onClick={this.addContact} className="form__add">
-              Add
+              ADD
             </Link>
           </form>
         </div>
