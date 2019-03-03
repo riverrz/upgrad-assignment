@@ -22,7 +22,8 @@ class AddContact extends PureComponent {
       phone: event.target.value
     });
   };
-  addContact = () => {
+  addContact = event => {
+    event.preventDefault();
     this.props.addContact({ name: this.state.name, phone: this.state.phone });
   };
   render() {
@@ -30,17 +31,19 @@ class AddContact extends PureComponent {
       <Fragment>
         <Header>Add a contact</Header>
         <div className="AddContact__container">
-          <Link to="/" className="form__link">Go Back</Link>
-          <form className="AddContact__form">
+          <Link to="/" className="form__link">
+            Go Back
+          </Link>
+          <form className="AddContact__form" onSubmit={this.addContact}>
             <div className="form__control">
               <label htmlFor="name">Name: </label>
-              <input type="text" id="name" onChange={this.onChangeName} />
+              <input type="text" id="name" onChange={this.onChangeName} required/>
             </div>
             <div className="form__control">
               <label htmlFor="phone">Phone: </label>
-              <input type="text" id="phone" onChange={this.onChangePhone} />
+              <input type="text" id="phone" onChange={this.onChangePhone} required/>
             </div>
-            <hr/>
+            <hr />
             <h3>Subscriber to be added:</h3>
             <div className="form__display">
               Name: <span>{this.state.name}</span>
@@ -48,9 +51,9 @@ class AddContact extends PureComponent {
             <div className="form__display">
               Phone: <span>{this.state.phone}</span>
             </div>
-            <Link to="/" onClick={this.addContact} className="form__add">
+            <button type="submit" className="form__add">
               ADD
-            </Link>
+            </button>
           </form>
         </div>
       </Fragment>

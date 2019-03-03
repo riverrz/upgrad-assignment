@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import Main from "./Containers/Main";
 import AddContact from "./Components/AddContact/AddContact";
 
@@ -15,9 +15,14 @@ class App extends Component {
     const { name, phone } = contact;
     const newContacts = [...this.state.contacts];
     newContacts.push({ name, phone, id: newContacts.length + 1 });
-    this.setState({
-      contacts: newContacts
-    });
+    this.setState(
+      {
+        contacts: newContacts
+      },
+      () => {
+        this.props.history.push("/");
+      }
+    );
   };
   deleteContact = id => {
     const newContacts = this.state.contacts.filter(
@@ -48,4 +53,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
