@@ -1,5 +1,8 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, Fragment } from "react";
 import { Link } from "react-router-dom";
+import Header from "../Header/Header";
+
+import "./AddContact.css";
 
 class AddContact extends PureComponent {
   constructor(props) {
@@ -24,31 +27,33 @@ class AddContact extends PureComponent {
   };
   render() {
     return (
-      <div class="AddContact__container">
-        <Link to="/">Go Back</Link>
-        <h1>Add Contact</h1>
-        <form>
-          <div className="form__control">
-            <label htmlFor="name">Name: </label>
-            <input type="text" id="name" onChange={this.onChangeName} />
-          </div>
-          <div className="form__control">
-            <label htmlFor="phone">Phone: </label>
-            <input type="text" id="phone" onChange={this.onChangePhone} />
-          </div>
-
-          <h3>Subscriber to be added:</h3>
-          <div>
-            Name: <span>{this.state.name}</span>
-          </div>
-          <div>
-            Phone: <span>{this.state.phone}</span>
-          </div>
-          <Link to="/" onClick={this.addContact}>
-            Add
-          </Link>
-        </form>
-      </div>
+      <Fragment>
+        <Header>Add a contact</Header>
+        <div className="AddContact__container">
+          <Link to="/" className="form__link">Go Back</Link>
+          <form className="AddContact__form">
+            <div className="form__control">
+              <label htmlFor="name">Name: </label>
+              <input type="text" id="name" onChange={this.onChangeName} />
+            </div>
+            <div className="form__control">
+              <label htmlFor="phone">Phone: </label>
+              <input type="text" id="phone" onChange={this.onChangePhone} />
+            </div>
+            <hr/>
+            <h3>Subscriber to be added:</h3>
+            <div className="form__display">
+              Name: <span>{this.state.name}</span>
+            </div>
+            <div className="form__display">
+              Phone: <span>{this.state.phone}</span>
+            </div>
+            <Link to="/" onClick={this.addContact} className="form__add">
+              Add
+            </Link>
+          </form>
+        </div>
+      </Fragment>
     );
   }
 }
